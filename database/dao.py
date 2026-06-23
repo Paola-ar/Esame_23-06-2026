@@ -39,3 +39,27 @@ class Dao:
         cnx.close()
 
         return results
+
+    @staticmethod
+    def read_all_business():
+        print("Executing read from database using SQL query")
+        results = []
+        cnx = DBConnect.get_connection()
+
+        if cnx is None:
+            print("Connection failed")
+            return None
+
+        cursor = cnx.cursor(dictionary=True)
+
+        query = """ SELECT business_id FROM Business """
+
+        cursor.execute(query)
+
+        for row in cursor:
+            results.append(row["business_id"])
+
+        cursor.close()
+        cnx.close()
+
+        return results
